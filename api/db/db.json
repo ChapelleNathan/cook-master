@@ -1,3 +1,10 @@
 { 
-    "recipes": [] 
+    "recipes": [] ,
+
+    "units": [
+        "UNIT_GRAM",
+        "UNIT_PACK",
+        "UNIT_OBJECT",
+        "UNIT_LITER"
+    ]
 }
