@@ -1,23 +1,27 @@
-exports.recipeVerify = (req,res,db)=>{
+
+/**
+ * 
+ * @param {*} data a recipe object to verify and clean 
+ * @param {*} db copy of the database to access constant
+ * @returns a recipe object containing only the necessary data 
+ *          or if the verification fail {}
+ */
+exports.recipeVerify = (data,db)=>{
     const recipe = { title: "", ingredients: [] };
 
     //title
-    recipe.title = req.body.title
-    if (typeof recipe.tile !== typeof String ||
+    recipe.title = data.title
+    if (typeof recipe.title !== typeof String ||
         recipe.title.length == 0) {
-
-        res.status(400).send("Corps de requête incorrect");
         return {};
     }
 
     //ingredients
-    if (!Array.isArray(body.ingredients) ||
-        body.ingredients.length == 0) {
-
-        res.status(400).send("Corps de requête incorrect");
+    if (!Array.isArray(data.ingredients) ||
+        data.ingredients.length == 0) {
         return {};
     }
-    for (let ingredient of ingredients) {
+    for (let ingredient of data.ingredients) {
         const ingr = { name: "", quantity: 0, unit: "" };
 
         //ingredient.name
@@ -25,7 +29,6 @@ exports.recipeVerify = (req,res,db)=>{
         if (typeof ingr.name !== typeof String ||
             ingr.name.length == 0) {
 
-            res.status(400).send("Corps de requête incorrect");
             return {};
         }
 
@@ -34,7 +37,6 @@ exports.recipeVerify = (req,res,db)=>{
         if (typeof ingr.quantity !== typeof Number ||
             ingr.quantity== 0) {
 
-            res.status(400).send("Corps de requête incorrect");
             return {};
         }
 
@@ -42,7 +44,7 @@ exports.recipeVerify = (req,res,db)=>{
         ingr.unit = ingredient.unit
         if(typeof ingr.unit === typeof String ||
             ! db.units.include(ingr.unit)){
-                res.status(400).send("Corps de requête incorrect");
+
                 return {};
         }
         recipe.ingredients.push(ingr)

@@ -11,8 +11,9 @@ exports.createRecipeCtrl = (req, res) => {
         return;
     }
 
-    const verified = recipeVerify(req,res,db)
+    const verified = recipeVerify(req.body,db)
     if(Object.keys(verified).length === 0){
+        res.status(400).send("Corps de requête incorrect");
         return;
     }
     
