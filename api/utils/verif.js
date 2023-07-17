@@ -10,23 +10,26 @@ exports.recipeVerify = (data,db)=>{
     const recipe = { title: "", ingredients: [] };
 
     //title
-    recipe.title = data.title
-    if (typeof recipe.title !== typeof String ||
+    
+    recipe.title = data.body.title
+    if (typeof recipe.title !== typeof "" ||
         recipe.title.length == 0) {
         return {};
     }
 
     //ingredients
-    if (!Array.isArray(data.ingredients) ||
-        data.ingredients.length == 0) {
+
+    if (!Array.isArray(data.body.ingredients) ||
+        data.body.ingredients.length < 1) {
         return {};
     }
-    for (let ingredient of data.ingredients) {
+    for (let ingredientString of data.body.ingredients) {
+        const ingredient=JSON.parse(ingredientString)
         const ingr = { name: "", quantity: 0, unit: "" };
 
         //ingredient.name
-        ingr.name = ingredient.name
-        if (typeof ingr.name !== typeof String ||
+        ingr.name = ingredient["name"]
+        if (typeof ingr.name !== typeof "" ||
             ingr.name.length == 0) {
 
             return {};
@@ -34,21 +37,23 @@ exports.recipeVerify = (data,db)=>{
 
         //ingredient.quantity
         ingr.quantity = ingredient.quantity;
-        if (typeof ingr.quantity !== typeof Number ||
-            ingr.quantity== 0) {
+
+        if (typeof ingr.quantity !== typeof "" ||
+            ingr.quantity< 0) {
 
             return {};
         }
 
         //ingredient.unit
-        ingr.unit = ingredient.unit
-        if(typeof ingr.unit === typeof String ||
-            ! db.units.some(unit=>unit.name==ingr.unit.name)){
+        
+        if(typeof ingredient.unit !== typeof "" ||
+            ! (ingredient.unit in db.units) ){
 
                 return {};
         }
+        ingr.unit = db.units[ingredient.unit].name
         recipe.ingredients.push(ingr)
     }
-
+    console.log(recipe);
     return recipe
 }

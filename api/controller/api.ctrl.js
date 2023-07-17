@@ -6,12 +6,12 @@ const { recipeVerify } = require('../utils/verif');
 exports.createRecipeCtrl = (req, res) => {
     
     // query verification
-    if(typeof req.query.gastronomy!== typeof String){
+    if(! db.gastronomy.hasOwnProperty(req.query.gastronomy) ){
         res.status(400).send("QueryString de requête incorrect");
         return;
     }
 
-    const verified = recipeVerify(req.body,db)
+    const verified = recipeVerify(req,db)
     if(Object.keys(verified).length === 0){
         res.status(400).send("Corps de requête incorrect");
         return;
@@ -21,9 +21,9 @@ exports.createRecipeCtrl = (req, res) => {
     
     //append and update db
     //
-    const gastroI =db.recipes.findIndex(gastro=>gastro.name.toLowerCase() == req.query.gastronomy.toLowerCase())
+    const gastroI =db.recipes.findIndex(gastro=>gastro.name.toLowerCase() == db.gastronomy[req.query.gastronomy].name)
     if(gastroI == -1){
-        db.recipes.push({name:req.query.gastronomy,recipes:[recipe]})
+        db.recipes.push({name:db.gastronomy[req.query.gastronomy].name,recipes:[recipe]})
     }else{
         db.recipes[gastroI].recipes.push(recipe)
     }
