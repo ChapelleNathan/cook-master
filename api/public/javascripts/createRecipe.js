@@ -46,7 +46,8 @@ export async function createRecipe() {
                 { type: "number" },
                 { name: `ingredient-${ingredientsNb}-quantity` },
                 { id: `ingredient-${ingredientsNb}-quantity` },
-                { required: "required" }
+                { required: "required" },
+                { min: "0"}
             ]);
 
             const unitSelect = createMarkup("select", "", quantityContainer, [
