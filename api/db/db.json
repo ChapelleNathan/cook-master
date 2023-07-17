@@ -1,3 +1,57 @@
 { 
-    "recipes": [] 
+    "recipes": {
+        "french": [
+            {
+                "id": 1,
+                "title": "Raclette",
+                "ingredients": [
+                    {
+                        "name": "potato",
+                        "quantity": 16,
+                        "unit": "UNIT_OBJECT"
+                    },
+                    {
+                        "name": "tomato",
+                        "quantity": 300,
+                        "unit": "UNIT_GRAM"
+                    }
+                ]
+            },
+            {
+                "id": 2,
+                "title": "Boeuf Bourguinon"
+            }
+            
+        ],
+        "chinese": [
+            {
+                "id": 98,
+                "title": "Bo Bun"
+            }
+        ],
+        "italian": [
+            {
+                "id": 12,
+                "title": "Tiramisu",
+                "ingredients": [
+                    {
+                        "name": "sugar",
+                        "quantity": 100,
+                        "unit": "UNIT_GRAM"
+                    },
+                    {
+                        "name": "vanilla sugar",
+                        "quantity": 1,
+                        "unit": "UNIT_PACK"
+                    }
+                ]
+            }
+        ]
+    },
+    "units": [
+        "UNIT_GRAM",
+        "UNIT_PACK",
+        "UNIT_OBJECT",
+        "UNIT_LITER"
+    ]
 }
