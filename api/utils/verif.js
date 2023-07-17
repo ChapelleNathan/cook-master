@@ -54,6 +54,5 @@ exports.recipeVerify = (data,db)=>{
         ingr.unit = db.units[ingredient.unit].name
         recipe.ingredients.push(ingr)
     }
-    console.log(recipe);
     return recipe
 }
