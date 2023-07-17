@@ -1,3 +1,4 @@
+import { createRecipe } from "./createRecipe.js";
 import { recipes } from "./recipes.js";
 
 const route = (event) => {
@@ -11,6 +12,7 @@ const routes = {
     404: "../html/404.html",
     "/recipes": "../html/recipes.html",
     "/recipe": '../html/recipeDetail.html',
+    "/create-recipe": "../html/createRecipe.html"
 };
 
 const handleLocation = async () => {
@@ -31,6 +33,9 @@ const handleLocation = async () => {
             const param = new URLSearchParams(window.location.search);
             const id = parseInt(param.get("id"));
             recipe(id);
+        case '/create-recipe':
+            createRecipe();
+            break;
         default:
             break;
     }
