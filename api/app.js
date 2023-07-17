@@ -4,8 +4,11 @@ const {resolve} = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 
+
+//TODO delete recipeRouter and usersRouter to import only indexRouter
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
+const recipeRouter = require('./routes/recipes.routes');
 
 const app = express();
 
@@ -16,6 +19,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(resolve('public')));
 
+app.use(recipeRouter);
 app.use(indexRouter);
 app.use('/users', usersRouter);
 
