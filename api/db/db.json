@@ -1,10 +1,16 @@
-{ 
-    "recipes": [] ,
+{
+  "recipes": [],
 
-    "units": [
-        {"name":"UNIT_GRAM", "alias":"grammes"},
-        {"name":"UNIT_PACK","alias":"packets"},
-        {"name":"UNIT_OBJECT", "alias":"unité"},
-        {"name": "UNIT_LITER", "alias":"litre"}
-    ]
+  "units": {
+    "1":{ "name": "UNIT_GRAM", "alias": "grammes" },
+    "2":{ "name": "UNIT_PACK", "alias": "packets" },
+    "3":{ "name": "UNIT_OBJECT", "alias": "unité" },
+    "4":{ "name": "UNIT_LITER", "alias": "litre" }
+  },
+  "gastronomy": {
+    "1": { "name": "french", "alias": "Française" },
+    "2": { "name": "chinese", "alias": "Chinoise" },
+    "3": { "name": "japanese", "alias": "Japonaise" },
+    "4": { "name": "english", "alias": "Anglaise" }
+  }
 }

@@ -1,5 +1,5 @@
 const { randomUUID } = require('crypto');
-const { db } = require("../db/db.json");
+const db = require("../db/db.json");
 const { updateJSON } = require('../utils/dataManip');
 const { recipeVerify } = require('../utils/verif');
 
@@ -31,4 +31,17 @@ exports.createRecipeCtrl = (req, res) => {
 
     res.status(200).send(recipe);
 
+}
+
+exports.getConstCtrl = (req,res)=>{
+
+    const constant = {
+        gastronomy: Object.entries(db.gastronomy).map(([key,value])=>{
+            return {id:key,alias:value.alias}
+        }),
+        units: Object.entries(db.units).map(([key,value])=>{
+            return {id:key,alias:value.alias}
+        })
+    }
+    res.status(200).send(constant)
 }
