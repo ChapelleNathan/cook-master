@@ -1,0 +1,65 @@
+<form id="recipe-form">
+  <label>
+    Gastronomie :
+    <select name="gastronomy" id="gastronomy" required>
+      <option value="">Choisissez une gastronomie</option>
+    </select>
+  </label>
+  <label>
+    Titre :
+    <input type="text" id="title" name="title" required />
+  </label>
+
+  <fieldset>
+    <legend>Liste des Ingrédients</legend>
+    <div>
+      <button
+        id="ingredient-rm"
+        aria-label="supprimer un ingredient"
+        type="button"
+        disabled>
+        -
+      </button>
+      <button
+        id="ingredient-add"
+        aria-label="ajouté un ingredient"
+        type="button">
+        +
+      </button>
+    </div>
+    <ul id="ingredients-ul">
+      <li>
+        <fieldset id="ingredient-1">
+          <legend>Ingrédient 1</legend>
+          <label
+            >nom :
+            <input
+              type="text"
+              name="ingredient-1-name"
+              id="ingredient-1-name"
+              required />
+          </label>
+          <div>
+            <label
+              >quantité :
+              <input
+                type="number"
+                name="ingredient-1-quantity"
+                id="ingredient-1-quantity"
+                required 
+                min="0"/>
+            </label>
+            <select
+              name="ingredient-1-q-unit"
+              id="ingredient-1-q-unit"
+              class="units"
+              required>
+              <option value="">Choisissez une unité</option>
+            </select>
+          </div>
+        </fieldset>
+      </li>
+    </ul>
+  </fieldset>
+  <input type="submit" value="Valider la recette" />
+</form>

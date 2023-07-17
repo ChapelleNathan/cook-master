@@ -1,16 +1,68 @@
-{ 
-    "recipes": [
+
+{
+  "recipes": [
+    {
+      "name": "french",
+      "recipes": [
         {
-            "id": 1,
-            "title" : "raclette"
+          "id": "2322b57c-98d0-41b3-9d69-14909a18b3c5",
+          "title": "3",
+          "ingredients": [
+            {
+              "name": "4",
+              "quantity": "4",
+              "unit": "UNIT_GRAM"
+            }
+          ]
         },
         {
-            "id": 2,
-            "title": "boeuf bourguinion"
-        },
-        {
-            "id": 98,
-            "title": "Bo Bun"
+          "id": "ea8e0eee-123e-489b-8644-f39be414f450",
+          "title": "3",
+          "ingredients": [
+            {
+              "name": "4",
+              "quantity": "4",
+              "unit": "UNIT_GRAM"
+            }
+          ]
         }
-    ]
+      ]
+    }
+  ],
+  "units": {
+    "1": {
+      "name": "UNIT_GRAM",
+      "alias": "grammes"
+    },
+    "2": {
+      "name": "UNIT_PACK",
+      "alias": "packets"
+    },
+    "3": {
+      "name": "UNIT_OBJECT",
+      "alias": "unité"
+    },
+    "4": {
+      "name": "UNIT_LITER",
+      "alias": "litre"
+    }
+  },
+  "gastronomy": {
+    "1": {
+      "name": "french",
+      "alias": "Française"
+    },
+    "2": {
+      "name": "chinese",
+      "alias": "Chinoise"
+    },
+    "3": {
+      "name": "japanese",
+      "alias": "Japonaise"
+    },
+    "4": {
+      "name": "english",
+      "alias": "Anglaise"
+    }
+  }
 }
