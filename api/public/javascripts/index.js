@@ -1,3 +1,4 @@
+import { createRecipe } from "./createRecipe.js";
 import { recipes } from "./recipes.js";
 
 const route = (event) => {
@@ -10,18 +11,22 @@ const route = (event) => {
 const routes = {
     404: "../html/404.html",
     "/recipes": "../html/recipes.html",
+    "/create-recipe": "../html/createRecipe.html"
 };
 
 const handleLocation = async () => {
     const path = window.location.pathname;
     const route = routes[path] || routes[404];
     const html = await fetch(route).then((data) => data.text());
+    console.log(route);
     document.getElementById("main-page").innerHTML = html;
     switch (path) {
         case '/recipes':
             recipes();
             break;
-    
+        case '/create-recipe':
+            createRecipe();
+            break;
         default:
             break;
     }
