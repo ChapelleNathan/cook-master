@@ -1,5 +1,5 @@
 import { createRecipe } from "./createRecipe.js";
-import { recipes } from "./recipes.js";
+import { recipes, recipe } from "./recipes.js";
 
 const route = (event) => {
     event = event || window.event;
@@ -20,7 +20,6 @@ const handleLocation = async () => {
     const path = window.location.pathname;
     console.log(path);
     const route = routes[path] || routes[404];
-    console.log(route);
     const html = await fetch(route).then((data) => data.text());
     document.getElementById("main-page").innerHTML = html;
 

@@ -2,10 +2,14 @@ import createMarkup from "./utils/_createMarkup.js";
 
 export async function recipes() {
     const section = document.getElementById('recipes');
-    let recipes = await((await fetch('/api/recipes')).json());
-    recipes.forEach(recipe => {
-        const article = createMarkup('article','', section)
-        createMarkup('a',`${recipe.title}`, article, [{href: `/recipe?id=${recipe.id}`}, {class: 'fs-4'}]);
+    let recipesJSON = await((await fetch('/api/recipes')).json());
+    recipesJSON.forEach(country => {
+        let recipes = country.recipes;
+        recipes.forEach(recipe => {
+            console.log("Dans le for each pour " + country.name);
+            const article = createMarkup('article','', section)
+            createMarkup('a',`${recipe.title}`, article, [{href: `/recipe?id=${recipe.id}`}, {class: 'fs-4'}]);
+        })
     })
 }
 
@@ -13,6 +17,7 @@ export async function recipes() {
 export async function recipe(id) {
     const recipeInfo= createMarkup("section","",document.body);
     let recipe = await((await fetch(`/api/recipe?id=${id}`)).json());
+    console.log(recipe);
     createMarkup("h3", recipe.title, recipeInfo);
     createMarkup("ul", "", recipeInfo);
     recipe.ingredients.forEach(function(ingredient){
