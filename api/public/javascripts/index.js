@@ -1,3 +1,4 @@
+import { createRecipe } from "./createRecipe.js";
 import { recipes } from "./recipes.js";
 
 const route = (event) => {
@@ -10,6 +11,7 @@ const route = (event) => {
 const routes = {
     404: "../html/404.html",
     "/recipes": "../html/recipes.html",
+    "/create-recipe": "../html/createRecipe.html"
 };
 
 const handleLocation = async () => {
@@ -21,7 +23,9 @@ const handleLocation = async () => {
         case '/recipes':
             recipes();
             break;
-    
+        case '/create-recipe':
+            createRecipe();
+            break;
         default:
             break;
     }
