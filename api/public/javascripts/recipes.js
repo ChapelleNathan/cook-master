@@ -4,13 +4,13 @@ export async function recipes() {
     const section = document.getElementById('recipes');
     let recipes = await((await fetch('/api/recipes')).json());
     recipes.forEach(recipe => {
-        render(recipe);
+        render(recipe, section);
     })
 }
 
 
-export function render(recette) {
-    const recipeBox= createMarkup("article","",section);
+export function render(recette, parent) {
+    const recipeBox= createMarkup("article","",parent);
     createMarkup("h3",recette.title,recipeBox,[{class: 'fs-4'}]);
     console.log(recette.title,recipeBox);
     createMarkup("ul","",recipeBox);
