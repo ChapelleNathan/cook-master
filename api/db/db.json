@@ -1,3 +1,16 @@
 { 
-    "recipes": [] 
+    "recipes": [
+        {
+            "id": 1,
+            "title" : "raclette"
+        },
+        {
+            "id": 2,
+            "title": "boeuf bourguinion"
+        },
+        {
+            "id": 98,
+            "title": "Bo Bun"
+        }
+    ]
 }
