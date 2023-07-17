@@ -40,7 +40,7 @@ export async function createRecipe() {
                 { required: "required" }
             ]);
 
-            const quantityContainer = createMarkup("div","",ingredientFs)
+            const quantityContainer = createMarkup("div", "", ingredientFs)
             const quantityLabel = createMarkup("label", "quantité :", quantityContainer)
             createMarkup("input", "", quantityLabel, [
                 { type: "number" },
@@ -49,14 +49,14 @@ export async function createRecipe() {
                 { required: "required" }
             ]);
 
-            const unitSelect=createMarkup("select","",quantityContainer, [
+            const unitSelect = createMarkup("select", "", quantityContainer, [
                 { name: `ingredient-${ingredientsNb}-q-unit` },
                 { id: `ingredient-${ingredientsNb}-q-unit` },
                 { required: "required" }
             ]);
-            createMarkup("option", "Choisissez une unité", unitSelect, [{ value: ""}]);
+            createMarkup("option", "Choisissez une unité", unitSelect, [{ value: "" }]);
 
-            addOptions(unitSelect,constant.units);
+            addOptions(unitSelect, constant.units);
 
             rmIngredientBtn.removeAttribute("disabled")
         }
@@ -78,25 +78,32 @@ export async function createRecipe() {
             ev.preventDefault()
             const formData = new FormData(ev.target).entries()
             const category = formData.next().value[1]
-            const recipe={}
-            recipe.title=formData.next().value[1]
+            const recipe = {}
+            recipe.title = formData.next().value[1]
 
-            recipe.ingredients=[]
+            recipe.ingredients = []
             let iter = 0
-            while(iter<ingredientsNb){
-                const ingredient={}
-                ingredient.name=formData.next().value[1];
-                ingredient.quantity=formData.next().value[1];
-                ingredient.unit=formData.next().value[1];
+            while (iter < ingredientsNb) {
+                const ingredient = {}
+                ingredient.name = formData.next().value[1];
+                ingredient.quantity = formData.next().value[1];
+                ingredient.unit = formData.next().value[1];
                 console.log(ingredient);
-                recipe.ingredients.push(ingredient)
+                recipe.ingredients.push(JSON.stringify(ingredient))
                 iter++
             }
-            console.log(recipe);
+            fetch(`/recipes?gastronomy=${category}`, {
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                method: "POST",
+                body: JSON.stringify(recipe)
+            }).catch(err => console.log(err))
 
         }
 
-        function addOptions(selectElement,optionData) {
+        function addOptions(selectElement, optionData) {
             optionData.forEach(option => {
                 createMarkup("option", option.alias, selectElement, [{ value: option.id }])
             })
@@ -111,8 +118,8 @@ export async function createRecipe() {
         //main
 
         rmIngredientBtn.setAttribute("disabled", "true")
-        addOptions(ingredient1UnitSelect,constant.units)
-        addOptions(gastronomySelect,constant.gastronomy)
+        addOptions(ingredient1UnitSelect, constant.units)
+        addOptions(gastronomySelect, constant.gastronomy)
     } catch (error) {
         console.error(error)
     }
