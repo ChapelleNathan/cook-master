@@ -1,4 +1,4 @@
-const { getAllRecipes } = require('../controller/recipeController');
+const { getAllRecipes} = require('../controller/recipeController');
 
 const router = require('express').Router();
 
