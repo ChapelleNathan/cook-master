@@ -2,9 +2,9 @@
     "recipes": [] ,
 
     "units": [
-        "UNIT_GRAM",
-        "UNIT_PACK",
-        "UNIT_OBJECT",
-        "UNIT_LITER"
+        {"name":"UNIT_GRAM", "alias":"grammes"},
+        {"name":"UNIT_PACK","alias":"packets"},
+        {"name":"UNIT_OBJECT", "alias":"unité"},
+        {"name": "UNIT_LITER", "alias":"litre"}
     ]
 }

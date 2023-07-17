@@ -43,7 +43,7 @@ exports.recipeVerify = (data,db)=>{
         //ingredient.unit
         ingr.unit = ingredient.unit
         if(typeof ingr.unit === typeof String ||
-            ! db.units.include(ingr.unit)){
+            ! db.units.some(unit=>unit.name==ingr.unit.name)){
 
                 return {};
         }
