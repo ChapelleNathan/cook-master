@@ -12,10 +12,8 @@ export async function recipes() {
 export function render(recette, parent) {
     const recipeBox= createMarkup("article","",parent);
     createMarkup("h3",recette.title,recipeBox,[{class: 'fs-4'}]);
-    console.log(recette.title,recipeBox);
     createMarkup("ul","",recipeBox);
     recette.ingredients.forEach(function(ingredient){
         createMarkup("li", ingredient.quantity + " " + ingredient.name + " " + ingredient.unit.alias);
-        console.log(ingredient.quantity + " " + ingredient.name + " " + ingredient.unit.alias);
     });
 }
