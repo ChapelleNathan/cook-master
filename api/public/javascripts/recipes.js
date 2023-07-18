@@ -21,7 +21,6 @@ export async function recipes() {
         const ingredients = (await ((await fetch('/ingredients')).json())).ingredients
         ingredients.forEach(option => {
             createMarkup("option", option, ingredientSelect, [{ value: option }])
-
         })
     }
 
@@ -53,8 +52,17 @@ export async function recipes() {
         recipesJSON.forEach(country => {
             let recipes = country.recipes;
             recipes.forEach(recipe => {
-                const article = createMarkup('article', '', section)
+                const article = createMarkup('article', '', section, [{class: 'd-flex justify-content-between mb-2'}])
                 createMarkup('a', `${recipe.title}`, article, [{ href: `/recipe?id=${recipe.id}` }, { class: 'fs-4' }]);
+                const suppBtn = createMarkup('button','Supprimer', article, [{class: 'btn btn-danger btn-sm'}]);
+                suppBtn.addEventListener('click', async (event) => {
+                  event.preventDefault();
+                  try {
+                    await fetch(`/api/recipe/${recipe.id}`, {method: 'delete'});
+                  } catch (error) {
+                    throw new Error(error)
+                  }
+              })
             })
         })
     }
