@@ -1,4 +1,5 @@
 import createMarkup from "./utils/_createMarkup.js";
+import { modifRecipe } from "./modifRecipe.js";
 
 export async function recipes() {
     const section = document.getElementById('recipes');
@@ -23,4 +24,5 @@ export async function recipe(id) {
         const unit = units.find(unit => unit.name == ingredient.unit);
         createMarkup('li', `${ingredient.quantity} ${unit.alias} de ${ingredient.name}`, list)
     });
+    createMarkup('button', `Modifier`, recipeInfo, {onclick= modifRecipe()});
 }
