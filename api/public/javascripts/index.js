@@ -1,5 +1,5 @@
 import { createRecipe } from "./createRecipe.js";
-import { recipes } from "./recipes.js";
+import { recipes, recipe } from "./recipes.js";
 
 const route = (event) => {
     event = event || window.event;
@@ -11,7 +11,7 @@ const route = (event) => {
 const routes = {
     404: "../html/404.html",
     "/recipes": "../html/recipes.html",
-    "/recipe": '', //Add recipe file to view a single recipe. use query string to get the id of the recipe. //window.location.search = query string
+    "/recipe": '../html/recipeDetail.html',
     "/create-recipe": "../html/createRecipe.html"
 
 };
@@ -28,6 +28,10 @@ const handleLocation = async () => {
         case '/recipes':
             recipes();
             break;
+        case '/recipe':
+            const param = new URLSearchParams(window.location.search);
+            const id = parseInt(param.get("id"));
+            recipe(id);
         case '/create-recipe':
             createRecipe();
             break;
