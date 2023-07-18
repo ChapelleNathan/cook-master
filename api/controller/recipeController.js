@@ -1,5 +1,6 @@
 const { recipes } = require('../db/db.json');
 
+
 exports.getRecipes = ((req, res) => {
     const filteredRecipes = recipes
     if (req.query.gastronomy != "") {
@@ -10,6 +11,13 @@ exports.getRecipes = ((req, res) => {
     }
     res.status(200).json(filteredRecipes);
 })
+
+exports.getRecipe = ((req, res) => {
+    res.status(200).json(recipe);
+    console.log(recipe);
+
+})
+
 
 /**
  * filter the unwanted gastronomy
@@ -39,3 +47,6 @@ function filterIngredient(data,filter){
         })
     });
 }
+
+
+
