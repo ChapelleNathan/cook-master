@@ -3,6 +3,7 @@ import createMarkup from "./utils/_createMarkup.js";
 export async function recipes() {
     // variable
     const section = document.getElementById('recipes');
+
     const gastronomySelect = document.getElementById('filter-gastronomy');
     const ingredientSelect = document.getElementById('filter-ingredient');
     let recipesJSON = await ((await fetch('/api/recipes')).json());
@@ -20,6 +21,7 @@ export async function recipes() {
         const ingredients = (await ((await fetch('/ingredients')).json())).ingredients
         ingredients.forEach(option => {
             createMarkup("option", option, ingredientSelect, [{ value: option }])
+
         })
     }
 
@@ -73,12 +75,15 @@ export async function recipes() {
 
 
 export async function recipe(id) {
-    const recipeInfo = createMarkup("section", "", document.body);
-    let recipe = await ((await fetch(`/api/recipe?id=${id}`)).json());
-    console.log(recipe);
+
+    const recipeInfo = document.getElementById('recipeDetail');
+    const recipe = await ((await fetch(`/api/recipe?id=${id}`)).json());
+    const units = await ((await fetch('/api/units')).json());
     createMarkup("h3", recipe.title, recipeInfo);
-    createMarkup("ul", "", recipeInfo);
+    const list = createMarkup("ul", "", recipeInfo);
     recipe.ingredients.forEach(function (ingredient) {
-        createMarkup("li", ingredient.quantity + " " + ingredient.name + " " + ingredient.unit.alias, recipeInfo);
+        const unit = units.find(unit => unit.name == ingredient.unit);
+        createMarkup('li', `${ingredient.quantity} ${unit.alias} de ${ingredient.name}`, list)
+
     });
 }
