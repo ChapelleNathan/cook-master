@@ -89,7 +89,6 @@ export async function createRecipe() {
                 ingredient.name = formData.next().value[1];
                 ingredient.quantity = formData.next().value[1];
                 ingredient.unit = formData.next().value[1];
-                console.log(ingredient);
                 recipe.ingredients.push(JSON.stringify(ingredient))
                 iter++
             }

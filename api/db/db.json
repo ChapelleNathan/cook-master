@@ -1,4 +1,3 @@
-
 {
   "recipes": [
     {
@@ -23,6 +22,22 @@
               "name": "4",
               "quantity": "4",
               "unit": "UNIT_GRAM"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "chinese",
+      "recipes": [
+        {
+          "id": "be1728ae-5e4e-4dd5-876b-3ef593e93534",
+          "title": "test",
+          "ingredients": [
+            {
+              "name": "etet",
+              "quantity": "3",
+              "unit": "UNIT_OBJECT"
             }
           ]
         }
