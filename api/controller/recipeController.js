@@ -3,10 +3,13 @@ const { recipes } = require('../db/db.json');
 
 exports.getRecipes = ((req, res) => {
     const filteredRecipes = recipes
-    if (req.query.gastronomy != "") {
+    console.log(`test req`,req.query.gastronomy);
+    console.log(`test req`,req.query.ingredient);
+    if (typeof req.query.gastronomy != "undefined") {
         filteredRecipes.recipes = filterGastronomy(filteredRecipes.recipes,req.query.gastronomy)
     }
-    if (req.query.ingredient != "") {
+    
+    if (typeof req.query.ingredient != "undefined") {
         filteredRecipes.recipes =filterIngredient(filteredRecipes.recipes,req.query.ingredient)
     }
     res.status(200).json(filteredRecipes);
