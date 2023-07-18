@@ -37,10 +37,10 @@ exports.getConstCtrl = (req,res)=>{
 
     const constant = {
         gastronomy: Object.entries(db.gastronomy).map(([key,value])=>{
-            return {id:key,alias:value.alias}
+            return {id:key,name:value.name,alias:value.alias}
         }),
         units: Object.entries(db.units).map(([key,value])=>{
-            return {id:key,alias:value.alias}
+            return {id:key,name:value.name,alias:value.alias}
         })
     }
     res.status(200).send(constant)
