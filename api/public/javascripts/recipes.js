@@ -89,5 +89,5 @@ export async function recipe(id) {
     });
     const modifier = createMarkup('button', `Modifier`, recipeInfo);
 
-    modifier.addEventListener("click", modifRecipe);
+    modifier.addEventListener("click", modifRecipe(id));
 }

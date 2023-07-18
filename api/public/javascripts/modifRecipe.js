@@ -1,4 +1,4 @@
-export async function modifRecipe() {
+export async function modifRecipe(id) {
     //imports
     //
     try {
@@ -8,16 +8,20 @@ export async function modifRecipe() {
         //
 
         //get units
-        const constant = await (await fetch("/api/recipe")).json();
+        const constant = await (await fetch("/constant")).json();
         console.log(constant);
+        const recipe = await ((await fetch(`/api/recipe?id=${id}`)).json());
+        console.log(recipe);
+
 
 
         const form = createMarkup("form", "", document.body);
-        const gastronomySelect = createMarkup("select", "Gastronomie:", form);
         const ingredientsList = createMarkup("ul", "Liste des Ingrédients", form);
-        const ingredientUnitSelect = createMarkup("select", "Choisissez une unité", form);
-        const addIngredientBtn = createMarkup("button", "+", form, {onclick: "addIngredient()"});
-        const rmIngredientBtn = createMarkup("button", "-", form, {onclick: "removeIngredient()"});
+        const rmIngredientBtn = createMarkup("button", "-", form);
+        const addIngredientBtn = createMarkup("button", "+", form);
+        const cancelBtn = createMarkup("button", "Annuler", form);
+        const submitBtn = createMarkup("button", "Envoyer", form);
+        let ingredientsNb = 1;
 
 
         //declare functions
@@ -32,7 +36,7 @@ export async function modifRecipe() {
             createMarkup("legend", `Ingrédient ${ingredientsNb}`, ingredientFs);
 
             const nameLabel = createMarkup("label", "nom :", ingredientFs);
-            createMarkup("input", "", nameLabel, [
+            const name = createMarkup("input", "", nameLabel, [
                 { type: "text" },
                 { name: `ingredient-${ingredientsNb}-name` },
                 { id: `ingredient-${ingredientsNb}-name` },
@@ -41,7 +45,7 @@ export async function modifRecipe() {
 
             const quantityContainer = createMarkup("div", "", ingredientFs)
             const quantityLabel = createMarkup("label", "quantité :", quantityContainer)
-            createMarkup("input", "", quantityLabel, [
+            const quantity = createMarkup("input", "", quantityLabel, [
                 { type: "number" },
                 { name: `ingredient-${ingredientsNb}-quantity` },
                 { id: `ingredient-${ingredientsNb}-quantity` },
@@ -54,7 +58,7 @@ export async function modifRecipe() {
                 { id: `ingredient-${ingredientsNb}-q-unit` },
                 { required: "required" }
             ]);
-            createMarkup("option", "Choisissez une unité", unitSelect, [{ value: "" }]);
+            const unit = createMarkup("option", "Choisissez une unité", unitSelect, [{ value: "" }]);
 
             addOptions(unitSelect, constant.units);
 
@@ -66,7 +70,7 @@ export async function modifRecipe() {
             ingredientsNb--
             ingredientsList.removeChild(ingredientsList.lastChild)
             if (ingredientsNb < 2) {
-                rmIngredientBtn.setAttribute("disabled", "true")
+                rmIngredientBtn.setAttribute("disabled", "true");
             }
         }
 
@@ -91,15 +95,6 @@ export async function modifRecipe() {
                 recipe.ingredients.push(JSON.stringify(ingredient))
                 iter++
             }
-            fetch(`/recipes?gastronomy=${category}`, {
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                method: "POST",
-                body: JSON.stringify(recipe)
-            }).catch(err => console.log(err))
-
         }
 
         function addOptions(selectElement, optionData) {
@@ -108,17 +103,63 @@ export async function modifRecipe() {
             })
         }
 
+        function setDefault(){
+            recipe.ingredients.forEach(ingredient => {
+                const ingredientContainer = createMarkup("li", "", ingredientsList);
+
+                const ingredientFs = createMarkup("fieldset", "", ingredientContainer);
+                createMarkup("legend", `Ingrédient ${ingredientsNb}`, ingredientFs);
+
+                const nameLabel = createMarkup("label", "nom :", ingredientFs);
+                const name = createMarkup("input", "", nameLabel, [
+                    { type: "text" },
+                    { name: `ingredient-${ingredientsNb}-name` },
+                    { id: `ingredient-${ingredientsNb}-name` },
+                    { value: ingredient.name },
+                    { required: "required" }
+                ]);
+
+                const quantityContainer = createMarkup("div", "", ingredientFs)
+                const quantityLabel = createMarkup("label", "quantité :", quantityContainer)
+                const quantity = createMarkup("input", "", quantityLabel, [
+                    { type: "number" },
+                    { name: `ingredient-${ingredientsNb}-quantity` },
+                    { id: `ingredient-${ingredientsNb}-quantity` },
+                    { value: ingredient.quantity },
+                    { required: "required" },
+                    { min: "0"}
+                ]);
+
+                const unitSelect = createMarkup("select", "", quantityContainer, [
+                    { name: `ingredient-${ingredientsNb}-q-unit` },
+                    { id: `ingredient-${ingredientsNb}-q-unit` },
+                    { required: "required" }
+                ]);
+                const unit = createMarkup("option", "Choisissez une unité", unitSelect, [{ value: "" }]);
+
+                addOptions(unitSelect, constant.units);
+
+                rmIngredientBtn.removeAttribute("disabled");
+            })
+        }
+
+        function resetForm(){
+            ingredientsList.innerHTML="";
+            ingredientsNb = 1;
+            setDefault();
+        }
+
         //EventListener
         //
         form.addEventListener("submit", submitRecipe);
         addIngredientBtn.addEventListener("click", addIngredient);
         rmIngredientBtn.addEventListener("click", removeIngredient);
+        cancelBtn.addEventListener("click", resetForm);
 
         //main
 
         rmIngredientBtn.setAttribute("disabled", "true")
-        addOptions(ingredientUnitSelect, constant.units)
-        addOptions(gastronomySelect, constant.gastronomy)
+        setDefault();
     } catch (error) {
         console.error(error)
     }
