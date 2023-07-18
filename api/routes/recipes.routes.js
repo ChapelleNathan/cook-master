@@ -1,9 +1,11 @@
+const { getRecipes, getRecipe, getAllUnits, deleteOneRecipe} = require('../controller/recipeController');
 
-const { getAllRecipes, getRecipe, getAllUnits, deleteOneRecipe} = require('../controller/recipeController');
 
 const router = require('express').Router();
 
-router.get('/api/recipes', getAllRecipes);
+
+router.get('/api/recipes', getRecipes)
+
 router.get('/api/recipe', getRecipe);
 router.delete('/api/recipe/:id', deleteOneRecipe);
 router.get('/api/units', getAllUnits);
