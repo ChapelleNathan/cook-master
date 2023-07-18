@@ -2,17 +2,15 @@ const { recipes } = require('../db/db.json');
 
 
 exports.getRecipes = ((req, res) => {
-    const filteredRecipes = recipes
-    console.log(`test req`,req.query.gastronomy);
-    console.log(`test req`,req.query.ingredient);
+    let filteredRecipes = structuredClone(recipes);
     if (typeof req.query.gastronomy != "undefined") {
-        filteredRecipes.recipes = filterGastronomy(filteredRecipes.recipes,req.query.gastronomy)
+        filteredRecipes= filterGastronomy(filteredRecipes,req.query.gastronomy)
     }
-    
     if (typeof req.query.ingredient != "undefined") {
-        filteredRecipes.recipes =filterIngredient(filteredRecipes.recipes,req.query.ingredient)
+        filteredRecipes =filterIngredient(filteredRecipes,req.query.ingredient)
     }
     res.status(200).json(filteredRecipes);
+    console.log(recipes);
 })
 
 exports.getRecipe = ((req, res) => {
@@ -41,13 +39,13 @@ function filterGastronomy(data,filter){
  * @returns the recipes with the wanted ingredient while preserving the structure of data
  */
 function filterIngredient(data,filter){
-    return data.recipes.map(gastronomy=>{
-        return gastronomy.recipes.filter(recipe=>{
-            
+    return data.map(gastronomy=>{
+        gastronomy.recipes =gastronomy.recipes.filter(recipe=>{
             return 0 != recipe.ingredients.filter(ingredient=>{
                 return ingredient.name == filter;
             }).length
         })
+        return gastronomy;
     });
 }
 

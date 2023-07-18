@@ -32,6 +32,7 @@ const handleLocation = async () => {
             const param = new URLSearchParams(window.location.search);
             const id = parseInt(param.get("id"));
             recipe(id);
+            break;
         case '/create-recipe':
             createRecipe();
             break;
