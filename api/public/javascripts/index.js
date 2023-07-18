@@ -13,6 +13,7 @@ const routes = {
     "/recipes": "../html/recipes.html",
     "/recipe": '../html/recipeDetail.html',
     "/create-recipe": "../html/createRecipe.html"
+
 };
 
 const handleLocation = async () => {
@@ -20,6 +21,7 @@ const handleLocation = async () => {
     const path = window.location.pathname;
     console.log(path);
     const route = routes[path] || routes[404];
+    console.log(route);
     const html = await fetch(route).then((data) => data.text());
     document.getElementById("main-page").innerHTML = html;
 

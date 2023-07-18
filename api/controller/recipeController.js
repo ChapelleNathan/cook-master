@@ -8,4 +8,5 @@ exports.getAllRecipes = ((req, res) => {
 exports.getRecipe = ((req, res) => {
     res.status(200).json(recipe);
     console.log(recipe);
+
 })
