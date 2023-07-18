@@ -8,10 +8,15 @@ export async function recipes() {
         recipes.forEach(recipe => {
             const article = createMarkup('article', '', section, [{class: 'd-flex justify-content-between mb-2'}])
             createMarkup('a', `${recipe.title}`, article, [{ href: `/recipe?id=${recipe.id}` }, { class: 'fs-4' }]);
-            const suppLink = createMarkup('a','Supprimer', article, [{class: 'btn btn-danger btn-sm'}]);
+            const suppBtn = createMarkup('button','Supprimer', article, [{class: 'btn btn-danger btn-sm'}]);
 
-            suppLink.addEventListener('click', (event) => {
+            suppBtn.addEventListener('click', async (event) => {
                 event.preventDefault();
+                try {
+                    await fetch(`/api/recipe/${recipe.id}`, {method: 'delete'});
+                } catch (error) {
+                    throw new Error(error)
+                }
             })
         })
     })
