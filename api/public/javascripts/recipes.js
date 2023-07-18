@@ -87,5 +87,7 @@ export async function recipe(id) {
         createMarkup('li', `${ingredient.quantity} ${unit.alias} de ${ingredient.name}`, list)
 
     });
-    createMarkup('button', `Modifier`, recipeInfo, {onclick= modifRecipe()});
+    const modifier = createMarkup('button', `Modifier`, recipeInfo);
+
+    modifier.addEventListener("click", modifRecipe);
 }

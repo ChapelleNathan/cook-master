@@ -8,7 +8,8 @@ export async function modifRecipe() {
         //
 
         //get units
-        const constant = await (await fetch("/api/recipe")).json()
+        const constant = await (await fetch("/api/recipe")).json();
+        console.log(constant);
 
 
         const form = createMarkup("form", "", document.body);
