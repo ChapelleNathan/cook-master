@@ -6,7 +6,6 @@ export async function recipes() {
     recipesJSON.forEach(country => {
         let recipes = country.recipes;
         recipes.forEach(recipe => {
-            console.log("Dans le for each pour " + country.name);
             const article = createMarkup('article','', section)
             createMarkup('a',`${recipe.title}`, article, [{href: `/recipe?id=${recipe.id}`}, {class: 'fs-4'}]);
         })
