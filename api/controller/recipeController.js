@@ -1,4 +1,3 @@
-const { response } = require('../app');
 const db = require('../db/db.json');
 const { updateJSON } = require('../utils/dataManip');
 
