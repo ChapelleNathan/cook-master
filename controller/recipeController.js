@@ -64,7 +64,6 @@ exports.getAllUnits = ((req, res) => {
 })
 
 exports.deleteOneRecipe= ((req, res) => {
-    console.log(db.recipes);
     const recipeId = req.params.id; 
     db.recipes.forEach(countries => {
         for(let i = 0; i < countries.recipes.length; i++) {

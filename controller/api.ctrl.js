@@ -34,7 +34,6 @@ exports.createRecipeCtrl = (req, res) => {
 }
 
 exports.modifRecipeCtrl = (req, res) => {
-    console.log(req.body);
     // body verification
     if(! db.gastronomy.hasOwnProperty(req.body.gastronomy) ){
         res.status(400).send("QueryString de requête incorrect");
@@ -45,29 +44,18 @@ exports.modifRecipeCtrl = (req, res) => {
         res.status(400).send("Corps de requête incorrect");
         return;
     }
-    console.log("Avant recipe");
-    console.log(req.params.id);
     const recipe = { id: req.params.id, ...verified};
-    console.log("Après recipe");
     //append and update db
     //
-    console.log("Avant init");
     
     const gastroI = db.recipes.findIndex(gastro=>gastro.name.toLowerCase() == db.gastronomy[req.body.gastronomy].name)
-    console.log(gastroI);
-    console.log("Après init");
     if(gastroI != -1){
-        console.log(recipe);
-        console.log(db.recipes[gastroI].recipes.findIndex(rec => recipe.id == rec.id));
         const recipeId = db.recipes[gastroI].recipes.findIndex(rec => recipe.id == rec.id)
         db.recipes[gastroI].recipes[recipeId] = recipe;
-        console.log("Modif faite:");
     }else{
         return res.status(400).send("QueryString de requête incorrect");
     }
-    console.log("Avant update");
     updateJSON(db);
-    console.log(db);
 
     res.status(200).send(recipe);
 

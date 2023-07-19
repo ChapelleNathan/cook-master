@@ -99,7 +99,9 @@ export async function createRecipe() {
                 },
                 method: "POST",
                 body: JSON.stringify(recipe)
-            }).catch(err => console.log(err))
+            }).catch(err => {
+                throw new Error(err);
+            })
 
         }
 

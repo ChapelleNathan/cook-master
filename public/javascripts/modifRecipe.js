@@ -8,9 +8,7 @@ export async function modifRecipe(id, renderRecipe) {
 
         //get units
         const constant = await (await fetch("/constant")).json();
-        console.log(constant);
         const recipe = await ((await fetch(`/api/recipe?id=${id}`)).json());
-        console.log(recipe);
 
 
         document.getElementById('recipeDetail').innerHTML="";
@@ -60,8 +58,7 @@ export async function modifRecipe(id, renderRecipe) {
                 { id: `ingredient-${ingredientsNb}-q-unit` },
                 { required: "required" }
             ]);
-            const unit = createMarkup("option", "Choisissez une unité", unitSelect, [{ value: "" }]);
-            console.log('toto',recipe.ingredients);
+            createMarkup("option", "Choisissez une unité", unitSelect, [{ value: "" }]);
             addOptions(unitSelect, constant.units);
 
             rmIngredientBtn.removeAttribute("disabled")
@@ -98,8 +95,6 @@ export async function modifRecipe(id, renderRecipe) {
                 iter++
                 
             }
-            console.log(recipe);
-            console.log(id);
             fetch(`/recipes/${id}`, {
                 headers: {
                     'Accept': 'application/json',
@@ -109,7 +104,9 @@ export async function modifRecipe(id, renderRecipe) {
                 body: JSON.stringify(recipe)
             })
             .then(renderRecipe(id))
-            .catch(err => console.log(err))
+            .catch(err => {
+                throw new Error(err);
+            })
 
         }
 
@@ -117,7 +114,6 @@ export async function modifRecipe(id, renderRecipe) {
         function addOptions(selectElement, optionData, defaultSelect) {
             optionData.forEach(option => {
                 const optionElt=createMarkup("option", option.alias, selectElement, [{ value: option.id }])
-                console.log(`${defaultSelect} == ${option.name}`);
                 if(defaultSelect == option.name ){
                     optionElt.setAttribute("selected","selected")
                 }
