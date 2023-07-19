@@ -35,6 +35,10 @@
           "ingredients": []
         }
       ]
+    },
+    {
+      "name": "japanese",
+      "recipes": []
     }
   ],
   "units": [
