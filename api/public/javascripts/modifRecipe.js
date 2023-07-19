@@ -3,7 +3,7 @@ export async function modifRecipe(id) {
     //
     try {
         const createMarkup = (await import("./utils/_createMarkup.js")).default;
-
+        document.getElementById("ingredient-list").innerHTML="";
         //declare variables
         //
 
@@ -15,12 +15,16 @@ export async function modifRecipe(id) {
 
 
 
-        const form = createMarkup("form", "", document.body);
+        const form = createMarkup("form", "", document.getElementById("ingredient-list"));
+        createMarkup("label", "Gastronomie:", form);
+        const gastronomySelect = createMarkup("select", "", form);
+        createMarkup("label", "Nom:", form);
+        const title = createMarkup("input", "", form, [{value: recipe.title}]);
         const ingredientsList = createMarkup("ul", "Liste des Ingrédients", form);
         const rmIngredientBtn = createMarkup("button", "-", form);
         const addIngredientBtn = createMarkup("button", "+", form);
         const cancelBtn = createMarkup("button", "Annuler", form);
-        const submitBtn = createMarkup("button", "Envoyer", form);
+        const submitBtn = createMarkup("button", "Envoyer", form, [{type:"submit"}]);
         let ingredientsNb = 1;
 
 
@@ -95,7 +99,17 @@ export async function modifRecipe(id) {
                 recipe.ingredients.push(JSON.stringify(ingredient))
                 iter++
             }
+            fetch(`/recipes?gastronomy=${category}`, {
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                method: "POST",
+                body: JSON.stringify(recipe)
+            }).catch(err => console.log(err))
+
         }
+
 
         function addOptions(selectElement, optionData) {
             optionData.forEach(option => {
@@ -104,6 +118,7 @@ export async function modifRecipe(id) {
         }
 
         function setDefault(){
+            
             recipe.ingredients.forEach(ingredient => {
                 const ingredientContainer = createMarkup("li", "", ingredientsList);
 
@@ -159,6 +174,7 @@ export async function modifRecipe(id) {
         //main
 
         rmIngredientBtn.setAttribute("disabled", "true")
+        addOptions(gastronomySelect, constant.gastronomy)
         setDefault();
     } catch (error) {
         console.error(error)

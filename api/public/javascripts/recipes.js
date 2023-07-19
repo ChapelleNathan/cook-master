@@ -2,6 +2,8 @@ import createMarkup from "./utils/_createMarkup.js";
 import { modifRecipe } from "./modifRecipe.js";
 
 export async function recipes() {
+
+
     // variable
     const section = document.getElementById('recipes');
 
@@ -88,6 +90,7 @@ export async function recipe(id) {
 
     });
     const modifier = createMarkup('button', `Modifier`, recipeInfo);
+    createMarkup('section','', recipeInfo, [{id:'ingredient-list'}]);
 
-    modifier.addEventListener("click", modifRecipe(id));
+    modifier.addEventListener("click", function(ev){modifRecipe(id)});
 }
