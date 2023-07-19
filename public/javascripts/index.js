@@ -12,13 +12,16 @@ const routes = {
     404: "../html/404.html",
     "/recipes": "../html/recipes.html",
     "/recipe": '../html/recipeDetail.html',
-    "/create-recipe": "../html/createRecipe.html"
-
+    "/create-recipe": "../html/createRecipe.html",
+    '/': ''
 };
 
 const handleLocation = async () => {
     
     const path = window.location.pathname;
+    if(path === '/') {
+        return;
+    }
     const route = routes[path] || routes[404];
     const html = await fetch(route).then((data) => data.text());
     document.getElementById("main-page").innerHTML = html;
