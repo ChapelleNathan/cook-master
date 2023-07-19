@@ -4,36 +4,25 @@
       "name": "french",
       "recipes": [
         {
-          "id": "2322b57c-98d0-41b3-9d69-14909a18b3c5",
-          "title": "3",
+          "id": "1",
+          "title": "Raclette",
           "ingredients": [
             {
-              "name": "4",
-              "quantity": "4",
+              "name": "potatoe",
+              "quantity": "14",
+              "unit": "UNIT_OBJECT"
+            },
+            {
+              "name": "tomatoe",
+              "quantity": "300",
               "unit": "UNIT_GRAM"
             }
           ]
         },
         {
-          "id": "ea8e0eee-123e-489b-8644-f39be414f450",
-          "title": "3",
+          "id": 2,
+          "title": "Boeuf Bourguinon",
           "ingredients": [
-            {
-              "name": "4",
-              "quantity": "4",
-              "unit": "UNIT_GRAM"
-            }
-          ]
-        },
-        {
-          "id": "1dec8e6a-3e9d-4e73-ae7c-6f565b759906",
-          "title": "Toto",
-          "ingredients": [
-            {
-              "name": "tata",
-              "quantity": "5",
-              "unit": "UNIT_GRAM"
-            }
           ]
         }
       ]
@@ -42,42 +31,9 @@
       "name": "chinese",
       "recipes": [
         {
-          "id": "be1728ae-5e4e-4dd5-876b-3ef593e93534",
-          "title": "test",
-          "ingredients": [
-            {
-              "name": "etet",
-              "quantity": "3",
-              "unit": "UNIT_OBJECT"
-            }
-          ]
-        },
-        {
-          "id": "89c0e782-e7e8-4dbe-b2c0-603c92816a6b",
-          "title": "ouai",
-          "ingredients": [
-            {
-              "name": "aredfqgs",
-              "quantity": "2",
-              "unit": "UNIT_GRAM"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "japanese",
-      "recipes": [
-        {
-          "id": "202abe8a-b335-42da-9147-b8c18b4af530",
-          "title": "idosqfwgho",
-          "ingredients": [
-            {
-              "name": "qsdfqsgd",
-              "quantity": "1",
-              "unit": "UNIT_GRAM"
-            }
-          ]
+          "id": 98,
+          "title": "Bo Bun",
+          "ingredients": []
         }
       ]
     }
