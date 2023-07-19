@@ -1,9 +1,8 @@
-export async function modifRecipe(id) {
+export async function modifRecipe(id, renderRecipe) {
     //imports
     //
     try {
         const createMarkup = (await import("./utils/_createMarkup.js")).default;
-        document.getElementById("ingredient-list").innerHTML="";
         //declare variables
         //
 
@@ -14,25 +13,24 @@ export async function modifRecipe(id) {
         console.log(recipe);
 
 
-
-        const form = createMarkup("form", "", document.getElementById("ingredient-list"));
+        document.getElementById('recipeDetail').innerHTML="";
+        const form = createMarkup("form", "", document.getElementById('recipeDetail'));
         createMarkup("label", "Gastronomie:", form);
-        const gastronomySelect = createMarkup("select", "", form);
+        const gastronomySelect = createMarkup("select", "", form, [{name: "gastronomy"}]);
         createMarkup("label", "Nom:", form);
-        const title = createMarkup("input", "", form, [{value: recipe.title}]);
+        const title = createMarkup("input", "", form, [{value: recipe.title}, {name: "name"}]);
         const ingredientsList = createMarkup("ul", "Liste des Ingrédients", form);
         const rmIngredientBtn = createMarkup("button", "-", form);
         const addIngredientBtn = createMarkup("button", "+", form);
         const cancelBtn = createMarkup("button", "Annuler", form);
         const submitBtn = createMarkup("button", "Envoyer", form, [{type:"submit"}]);
-        let ingredientsNb = 1;
+        let ingredientsNb = 0;
 
 
         //declare functions
         //
 
-        function addIngredient(ev) {
-            ev.preventDefault();
+        function addIngredient() {
             ingredientsNb++;
             const ingredientContainer = createMarkup("li", "", ingredientsList);
 
@@ -63,7 +61,7 @@ export async function modifRecipe(id) {
                 { required: "required" }
             ]);
             const unit = createMarkup("option", "Choisissez une unité", unitSelect, [{ value: "" }]);
-
+            console.log('toto',recipe.ingredients);
             addOptions(unitSelect, constant.units);
 
             rmIngredientBtn.removeAttribute("disabled")
@@ -85,8 +83,8 @@ export async function modifRecipe(id) {
         function submitRecipe(ev) {
             ev.preventDefault()
             const formData = new FormData(ev.target).entries()
-            const category = formData.next().value[1]
             const recipe = {}
+            recipe.gastronomy = formData.next().value[1]
             recipe.title = formData.next().value[1]
 
             recipe.ingredients = []
@@ -98,28 +96,38 @@ export async function modifRecipe(id) {
                 ingredient.unit = formData.next().value[1];
                 recipe.ingredients.push(JSON.stringify(ingredient))
                 iter++
+                
             }
-            fetch(`/recipes?gastronomy=${category}`, {
+            console.log(recipe);
+            console.log(id);
+            fetch(`/recipes/${id}`, {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 },
-                method: "POST",
+                method: "PATCH",
                 body: JSON.stringify(recipe)
-            }).catch(err => console.log(err))
+            })
+            .then(renderRecipe(id))
+            .catch(err => console.log(err))
 
         }
 
 
-        function addOptions(selectElement, optionData) {
+        function addOptions(selectElement, optionData, defaultSelect) {
             optionData.forEach(option => {
-                createMarkup("option", option.alias, selectElement, [{ value: option.id }])
+                const optionElt=createMarkup("option", option.alias, selectElement, [{ value: option.id }])
+                console.log(`${defaultSelect} == ${option.name}`);
+                if(defaultSelect == option.name ){
+                    optionElt.setAttribute("selected","selected")
+                }
             })
         }
 
         function setDefault(){
             
             recipe.ingredients.forEach(ingredient => {
+                ingredientsNb++;
                 const ingredientContainer = createMarkup("li", "", ingredientsList);
 
                 const ingredientFs = createMarkup("fieldset", "", ingredientContainer);
@@ -151,30 +159,28 @@ export async function modifRecipe(id) {
                     { required: "required" }
                 ]);
                 const unit = createMarkup("option", "Choisissez une unité", unitSelect, [{ value: "" }]);
-
-                addOptions(unitSelect, constant.units);
-
-                rmIngredientBtn.removeAttribute("disabled");
+                addOptions(unitSelect, constant.units,recipe.ingredients[ingredientsNb-1].unit);
+                
             })
+            if (ingredientsNb < 2) {
+                rmIngredientBtn.setAttribute("disabled", "true");
+            }
         }
 
         function resetForm(){
-            ingredientsList.innerHTML="";
-            ingredientsNb = 1;
-            setDefault();
+            renderRecipe(id);
         }
 
         //EventListener
         //
         form.addEventListener("submit", submitRecipe);
-        addIngredientBtn.addEventListener("click", addIngredient);
+        addIngredientBtn.addEventListener("click", (ev) => {ev.preventDefault(); addIngredient()});
         rmIngredientBtn.addEventListener("click", removeIngredient);
         cancelBtn.addEventListener("click", resetForm);
 
         //main
-
-        rmIngredientBtn.setAttribute("disabled", "true")
-        addOptions(gastronomySelect, constant.gastronomy)
+        
+        addOptions(gastronomySelect, constant.gastronomy,recipe.gastronomy)
         setDefault();
     } catch (error) {
         console.error(error)

@@ -77,20 +77,21 @@ export async function recipes() {
 }
 
 
-export async function recipe(id) {
+export async function renderRecipe(id) {
 
     const recipeInfo = document.getElementById('recipeDetail');
+    recipeInfo.innerHTML = "";
     const recipe = await ((await fetch(`/api/recipe?id=${id}`)).json());
     const units = await ((await fetch('/api/units')).json());
     createMarkup("h3", recipe.title, recipeInfo);
     const list = createMarkup("ul", "", recipeInfo);
     recipe.ingredients.forEach(function (ingredient) {
         const unit = units.find(unit => unit.name == ingredient.unit);
-        createMarkup('li', `${ingredient.quantity} ${unit.alias} de ${ingredient.name}`, list)
+        createMarkup('li', `${ingredient.quantity} ${unit.alias} de ${ingredient.name}`, list, [{id:'ingredient-list'}])
 
     });
     const modifier = createMarkup('button', `Modifier`, recipeInfo);
     createMarkup('section','', recipeInfo, [{id:'ingredient-list'}]);
 
-    modifier.addEventListener("click", function(ev){modifRecipe(id)});
+    modifier.addEventListener("click", function(ev){modifRecipe(id, renderRecipe)});
 }

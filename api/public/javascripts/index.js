@@ -1,5 +1,5 @@
 import { createRecipe } from "./createRecipe.js";
-import { recipes, recipe } from "./recipes.js";
+import { recipes, renderRecipe } from "./recipes.js";
 
 const route = (event) => {
     event = event || window.event;
@@ -31,7 +31,7 @@ const handleLocation = async () => {
         case '/recipe':
             const param = new URLSearchParams(window.location.search);
             const id = param.get("id");
-            recipe(id);
+            renderRecipe(id);
             break;
         case '/create-recipe':
             createRecipe();
