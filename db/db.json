@@ -1,0 +1,80 @@
+{
+  "recipes": [
+    {
+      "name": "french",
+      "recipes": [
+        {
+          "id": "1",
+          "title": "Raclette",
+          "ingredients": [
+            {
+              "name": "potatoe",
+              "quantity": "14",
+              "unit": "UNIT_OBJECT"
+            },
+            {
+              "name": "tomatoe",
+              "quantity": "300",
+              "unit": "UNIT_GRAM"
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "title": "Boeuf Bourguinon",
+          "ingredients": []
+        }
+      ]
+    },
+    {
+      "name": "chinese",
+      "recipes": [
+        {
+          "id": 98,
+          "title": "Bo Bun",
+          "ingredients": []
+        }
+      ]
+    },
+    {
+      "name": "japanese",
+      "recipes": []
+    }
+  ],
+  "units": [
+    {
+      "name": "UNIT_GRAM",
+      "alias": "grammes"
+    },
+    {
+      "name": "UNIT_PACK",
+      "alias": "packets"
+    },
+    {
+      "name": "UNIT_OBJECT",
+      "alias": "unité"
+    },
+    {
+      "name": "UNIT_LITER",
+      "alias": "litre"
+    }
+  ],
+  "gastronomy": {
+    "1": {
+      "name": "french",
+      "alias": "Française"
+    },
+    "2": {
+      "name": "chinese",
+      "alias": "Chinoise"
+    },
+    "3": {
+      "name": "japanese",
+      "alias": "Japonaise"
+    },
+    "4": {
+      "name": "english",
+      "alias": "Anglaise"
+    }
+  }
+}
